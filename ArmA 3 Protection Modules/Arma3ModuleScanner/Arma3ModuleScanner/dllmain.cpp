@@ -1,11 +1,66 @@
-#define WIN32_LEAN_AND_MEAN
-
-#include <windows.h>
-#include <psapi.h>
-#include <tlhelp32.h>
+#include "SignatureScanner.h"
 
 
-
+void initSignatures() {
+	char* badPats[] = { "", "NOPAT" };
+	char* badSigs[] = { "", "" };
+	for (int i = 0; i < ARRAYSIZE(badPats); i++) {
+		SIGNATURE sig;
+		sig.pattern = badPats[i];
+		sig.signature = badSigs[i];
+		signatures[i] = sig;
+	}
+};
+bool checkPattern(DWORD address, SIGNATURE sig) {
+	char* pattern = sig.pattern;
+	char* signature = sig.signature;
+	//--- Scan For Pattern
+	for (int i = 0; i < strlen(pattern); i++) {
+		char check = pattern[i];
+		char bytecheck = signature[i];
+		//--- If pattern says we are checking this byte
+		if (check == 'f') {
+			DWORD* ptrToAddress = (DWORD*)address;
+			//--- If we can read from memory at this address
+			if (!IsBadReadPtr(ptrToAddress, sizeof(char))) {
+				char byte = (char)*ptrToAddress;
+				if (byte != bytecheck) {
+					return false; //--- Byte at ADDRESS is not equal to what we are scanning for
+				}
+			}
+			else
+			{
+				return false; //--- bad pointer so this can't be where we are looking
+			}
+		}
+		address += 1; //--- Increase Address
+	}
+	return true;
+}
+void ScanModule(HMODULE hModule) {
+	MODULEINFO info;
+	GetModuleInformation(GetCurrentProcess(), hModule, &info, sizeof(MODULEINFO));
+	DWORD startAddress = (DWORD)info.lpBaseOfDll;
+	DWORD endAddress = startAddress + info.SizeOfImage;
+	for (DWORD address = startAddress; address < endAddress; address++) {
+		//--- Scan Address For Every Signature
+		for each(SIGNATURE sig in signatures) {
+			if (!strstr(sig.pattern, "NOPAT")) {
+				//--- Check Signature
+				if (checkPattern(address, sig)) {
+					//--- Unload Module
+					if (!FreeLibrary(hModule)) {
+						ExitProcess(0); //--- Failed to Unload (Exit Game)
+					}
+				}
+			}
+			else 
+			{
+				break;
+			}
+		}
+	}
+}
 
 //--- Process Debugger Scanner (This should never fire lol)
 void DebuggerScanner() {
@@ -50,6 +105,12 @@ void SelfScanner() {
 				if (!FreeLibrary(currentModule)) {
 					ExitProcess(0);
 				}
+			}
+			else
+			{
+				//--- Scan For Signatures
+				//ScanModule(currentModule);
+				//--- Not Enabled Right Now
 			}
 			Sleep(50);
 		}
@@ -118,6 +179,7 @@ void WindowScanner() {
 
 //--- Main Scanner Thread
 void RunScanners() {
+	//initSignatures();
 	while (true) {
 		DebuggerScanner();
 		WindowScanner();
