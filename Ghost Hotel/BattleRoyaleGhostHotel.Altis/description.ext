@@ -1,0 +1,32 @@
+author = "BATTLE ROYALE";
+onLoadName = "GHOST HOTEL";
+onLoadMission = "BATTLEROYALEGAMES.COM";
+joinUnassigned = 0;
+loadScreen = "br_loadscreen.paa";
+respawn = "BASE";	
+respawndelay = 3;
+enableDebugConsole = 0;
+disabledAI = 1;
+allowFunctionsRecompile = 1;
+showMap = 0;
+disableChannels[]={0,1,2,6};
+
+class Header
+{
+	gameType = DM;
+	minPlayers = 1;
+	maxPlayers = 30;
+};
+
+class CfgUnitInsignia
+{
+	class brghID
+	{
+		displayName = "Battle Royale: Ghost Hotel";
+		author = "PLAYERUNKNOWN";
+		texture = "images\insignia.paa";
+		textureVehicle = "";
+	};
+};
+
+#include "cfgFunctions.hpp"

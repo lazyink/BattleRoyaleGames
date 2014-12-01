@@ -1,0 +1,240 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, Anti-Teleport">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"ATP_Init_",0,250,-39.330635,-189.616257,50.669350,-139.616257,0.000000,"" \n "ATP Init" \n ""};
+item1[] = {"Continue",8,218,-39.291885,-100.095657,50.708115,-50.095585,0.000000,"Continue"};
+item2[] = {"Wait_For_Trigger",2,250,-38.719856,1.295538,51.280174,51.295555,0.000000,"Wait For" \n "Trigger"};
+item3[] = {"Exit_ATP",4,218,157.738419,0.421413,247.738419,50.421417,0.000000,"Exit ATP"};
+item4[] = {"Programical__Exi",1,250,157.738419,113.059708,247.738449,163.059769,0.000000,"Programical " \n "Exit"};
+item5[] = {"Distance_Trigger",4,218,-209.695480,1.198229,-119.695480,51.198235,0.000000,"Distance" \n "Trigger"};
+item6[] = {"Get_Velocity",2,250,-365.058746,1.174987,-275.058594,51.175095,0.000000,"Get Velocity"};
+item7[] = {"Bad_Velocity",4,218,-365.368195,111.151108,-275.368195,161.151184,0.000000,"Bad" \n "Velocity"};
+item8[] = {"TP_Exit__NOT_USED",1,4346,153.052216,-102.798393,243.052338,-52.798332,0.000000,"TP Exit" \n "(NOT USED)"};
+item9[] = {"Good_Velocity",4,218,-365.048218,-100.117462,-275.048218,-50.117462,0.000000,"Good" \n "Velocity"};
+item10[] = {"_",-1,250,-320.824951,-78.671921,-320.824951,-73.234207,0.000000,""};
+item11[] = {"Ready_next__iter",2,250,-216.422913,-100.134857,-126.422836,-50.134850,0.000000,"Ready next" \n " iteration"};
+item12[] = {"Teleport_Back_To",2,250,-201.530426,111.965172,-111.530411,161.965179,0.000000,"Teleport Back" \n "To Last" \n "Position"};
+item13[] = {"Continue",8,218,-38.429321,111.965210,51.570679,161.965210,0.000000,"Continue"};
+version=1;
+class LayoutItems
+{
+	class Item10
+	{
+		class ItemInfo
+		{
+			FontFace="Arial";
+			FontHeight=10;
+			lStyle=1;
+		};
+	};
+};
+link0[] = {0,1};
+link1[] = {1,2};
+link2[] = {2,3};
+link3[] = {2,5};
+link4[] = {3,4};
+link5[] = {5,6};
+link6[] = {6,7};
+link7[] = {6,9};
+link8[] = {7,12};
+link9[] = {9,11};
+link10[] = {11,1};
+link11[] = {12,13};
+link12[] = {13,2};
+globals[] = {0.000000,0,0,0,0,640,480,1,14,6316128,1,-370.357727,254.969910,571.355896,-260.553162,672,894,1};
+window[] = {0,-1,-1,-1,-1,789,398,1838,30,1,690};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "Anti-Teleport";
+  class States
+  {
+    /*%FSM<STATE "ATP_Init_">*/
+    class ATP_Init_
+    {
+      name = "ATP_Init_";
+      init = /*%FSM<STATEINIT""">*/"diag_log format[""ATP Started at: %1"",serverTime];" \n
+       "" \n
+       "_maxVelocity = 500;" \n
+       "_distanceTrigger = 500;" \n
+       "" \n
+       "if(count(_this) >= 1) then {" \n
+       "" \n
+       "	_distanceTrigger = _this select 0;" \n
+       "" \n
+       "	if(count(_this) >= 2) then {" \n
+       "" \n
+       "		_maxVelocity = _this select 1;" \n
+       "" \n
+       "	};" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Continue">*/
+        class Continue
+        {
+          priority = 0.000000;
+          to="Wait_For_Trigger";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Wait_For_Trigger">*/
+    class Wait_For_Trigger
+    {
+      name = "Wait_For_Trigger";
+      init = /*%FSM<STATEINIT""">*/"_lastPos = getposatl player;" \n
+       "" \n
+       "_lastTime = serverTime;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Distance_Trigger">*/
+        class Distance_Trigger
+        {
+          priority = 0.000000;
+          to="Get_Velocity";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((getposatl player) distance _lastPos) > _distanceTrigger"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Exit_ATP">*/
+        class Exit_ATP
+        {
+          priority = 0.000000;
+          to="Programical__Exi";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(alive player)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Programical__Exi">*/
+    class Programical__Exi
+    {
+      name = "Programical__Exi";
+      init = /*%FSM<STATEINIT""">*/"diag_log format[""ATP Exited at: %1"",serverTime];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Get_Velocity">*/
+    class Get_Velocity
+    {
+      name = "Get_Velocity";
+      init = /*%FSM<STATEINIT""">*/"_newPos = getposatl player;" \n
+       "" \n
+       "_dist = _lastPos distance _newPos;" \n
+       "" \n
+       "_km = _dist / 1000;" \n
+       "" \n
+       "_timeChange = serverTime - _lastTime; //--- time it took to cover distance" \n
+       "" \n
+       "_hours = _timeChange / 60; //--- convert seconds to hours" \n
+       "" \n
+       "_velocity = _km/_hours; //--- km/ hr"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Good_Velocity">*/
+        class Good_Velocity
+        {
+          priority = 0.000000;
+          to="Ready_next__iter";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_velocity <= _maxVelocity"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Bad_Velocity">*/
+        class Bad_Velocity
+        {
+          priority = 0.000000;
+          to="Teleport_Back_To";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_velocity > _maxVelocity"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "TP_Exit__NOT_USED">*/
+    class TP_Exit__NOT_USED
+    {
+      name = "TP_Exit__NOT_USED";
+      init = /*%FSM<STATEINIT""">*/"//--- Notify Server That We Have A Teleporter" \n
+       "" \n
+       "ATP = [player,_velocity,_lastPos,_newPos,_timeChange];" \n
+       "publicVariable ""ATP"";" \n
+       "" \n
+       "//--- Kick player from mission" \n
+       "" \n
+       "endMission ""FAIL"";"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Ready_next__iter">*/
+    class Ready_next__iter
+    {
+      name = "Ready_next__iter";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Continue">*/
+        class Continue
+        {
+          priority = 0.000000;
+          to="Wait_For_Trigger";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Teleport_Back_To">*/
+    class Teleport_Back_To
+    {
+      name = "Teleport_Back_To";
+      init = /*%FSM<STATEINIT""">*/"player  setposatl _lastpos;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Continue">*/
+        class Continue
+        {
+          priority = 0.000000;
+          to="Wait_For_Trigger";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="ATP_Init_";
+  finalStates[] =
+  {
+    "Programical__Exi",
+    "TP_Exit__NOT_USED",
+  };
+};
+/*%FSM</COMPILE>*/

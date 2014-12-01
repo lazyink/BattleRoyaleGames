@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project name="BattleRoyale GhostHotel">
+	<Package name="Wait_For_Players">
+		<Key ID="str_BRGH_waitingFor">
+			<Original>WAITING FOR</Original>
+			<English>WAITING FOR</English>
+			<Czech>CEKÁNÍ NA</Czech>
+			<French>EN ATTENDANT</French>
+			<German>WARTEN AUF</German>
+			<Italian>ASPETTANDO</Italian>
+			<Polish>CZEKA NA</Polish>
+			<Portuguese>ESPERANDO</Portuguese>
+			<Russian>????</Russian>
+			<Spanish>ESPERANDO</Spanish>
+		</Key>
+		<Key ID="str_BRGH_morePlayers">
+			<Original>MORE PLAYERS</Original>
+			<English>MORE PLAYERS</English>
+			<Czech>VÍCE HRÁCU</Czech>
+			<French>JOUEURS</French>
+			<German>MEHR SPIELER</German>
+			<Italian>PIÙ GIOCATORI</Italian>
+			<Polish>WIECEJ GRACZE</Polish>
+			<Portuguese>MAIS JOGADORES</Portuguese>
+			<Russian>????? ???????</Russian>
+			<Spanish>MÁS JUGADORES</Spanish>
+		</Key>
+	</Package>
+</Project>
