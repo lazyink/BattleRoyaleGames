@@ -48,9 +48,9 @@ guard. This will help further protect the game engine from memory cheats created
 =======================================
 Known Bugs / Issues with the extension
 =======================================
-1) No linux support
+1. No linux support
 	- As of now the extension does not support the linux OS
-2) Game Crashes
+2. Game Crashes
 	- Most often this will be caused by unknown modules.
 	- To aid in our development, use a program and send us
 	- a list of DLLs that your ArmA 3 program uses!
@@ -58,13 +58,13 @@ Known Bugs / Issues with the extension
 =======================================
 What we look forward to adding to this: 
 =======================================
-1) Close Open Process Handles
+1. Close Open Process Handles
 	- Prevent external memory cheats such as "Radar" cheats.
-2) More Debugger Checks
+2. More Debugger Checks
 	- Block debuggers created in C++/CLI (.NET)
-3) Signature Scanning
+3. Signature Scanning
 	- Scanning loaded modules for "hack" signatures (similar to that of BE)
-4) Self Protection & Automated Updates
+4. Self Protection & Automated Updates
 	- Cross Check itself with a hive update server. If this extension is not "up to date"
 	- then it will update itself.
 	- If someone modifies the Extension it will notify the change has been detected and to
