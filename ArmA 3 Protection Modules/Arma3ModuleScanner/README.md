@@ -69,4 +69,9 @@ What we look forward to adding to this:
 	- then it will update itself.
 	- If someone modifies the Extension it will notify the change has been detected and to
 	- Redownload and try again!
-	
+5. Function Hooking (may take some time)
+	- Protect in-game functions from being redirected into cheat DLLs.
+	- If this happens this will terminate the game.
+6. String Changing
+	- Protect in-game strings from being modified via external WPM/RPM
+	- This is a tricky one and will take time to get right
