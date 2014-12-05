@@ -1,4 +1,5 @@
 /*
+/*
 	File: init.sqf
 	Description: Client & Server initialiaztion code
 	Created By: Lystic
@@ -8,4 +9,5 @@
 */
 
 BRMini_GameStarted = false;
+
 

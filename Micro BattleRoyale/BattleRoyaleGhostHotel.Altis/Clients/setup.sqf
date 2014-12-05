@@ -25,20 +25,6 @@ setObjectViewDistance [1000,0];
 setViewDistance 1500;
 
 
-//--- REMOVE THIS PRIOR TO RELEASE
-/*
-[] spawn {
-	if(isNil "player_load") then {
-		player_load = player;
-		publicVariableServer "player_load";
-	};
-};
-*/
-[] spawn {
-	waitUntil{!isNil "AHConnected"};
-	[player,"AH_fnc_ClientConnect",false,false] call BIS_fnc_MP;
-};
-
 [] spawn {
 	while{true} do {
 		_units = units (group player);
