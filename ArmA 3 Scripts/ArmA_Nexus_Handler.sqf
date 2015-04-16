@@ -17,7 +17,12 @@ Zones = [
 
 OurZone = 1; //--- CHANGE THIS WITH THE CURRENT ZONE
 
+//--- Calculate Zone Boundries
 _zone = Zones select (OurZone - 1);
+_bounds = _zone select 0;
+_ip = _zone select 1;
+_xLow = _bounds select 0;
+_xHigh = _xLow + (_bounds select 1);
 
 while{true} do {
 	{
@@ -26,12 +31,6 @@ while{true} do {
 		_playerID = owner _x;
 		
 		_xP = _pos select 0;
-		
-		_bounds = _zone select 0;
-		_ip = _zone select 1;
-		
-		_xLow = _bounds select 0;
-		_xHigh = _xLow + (_bounds select 1);
 		
 		//--- Check X Handling
 		if(_xP < _xLow) then {
